@@ -64,8 +64,17 @@
 -callback start(StartType :: start_type(), StartArgs :: term()) ->
     {'ok', pid()} | {'ok', pid(), State :: term()} | {'error', Reason :: term()}.
 
+-callback start_phase(Phase :: atom(), StartType :: start_type(), PhaseArgs :: term()) ->
+    ok | {error, Reason :: term()}.
+
+-callback prep_stop(State :: term()) ->
+    NewState :: term().
+
 -callback stop(State :: term()) ->
     term().
+
+-optional_callbacks(
+    [start_phase/3, prep_stop/1]).
 
 %%%-----------------------------------------------------------------
 %%% This module is API towards application_controller and
